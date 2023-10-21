@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "research"
+  site-url: "https://pmk-research-project.github.io/research"
+  description: "a research library for the financial world"
+  repo-branch: main
+  repo-url: "https://github.com/pmk-research-project/research"

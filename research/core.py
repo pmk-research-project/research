@@ -25,7 +25,7 @@ class TimeSeries:
         self.ti = time_index
         self.d = data
 
-# %% ../nbs/00_core.ipynb 4
+# %% ../nbs/00_core.ipynb 5
 class Ledger:
     """
     A class ledger API giving user access to accounting calculations.
@@ -36,5 +36,5 @@ class Ledger:
     def sync(self):
         pass 
 
-# %% ../nbs/00_core.ipynb 6
+# %% ../nbs/00_core.ipynb 7
 def foo(): pass

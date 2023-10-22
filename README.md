@@ -11,12 +11,82 @@ documentation.
 pip install research
 ```
 
-## How to use
+## core & datastore
 
-Fill me in please! Don’t forget code examples:
+> submodules for loading and analyzing timeseries data
+
+### equities
 
 ``` python
-1+1
+from research.datastore import DataStore
+from research.core import TimeSeries, Ledger
+from research.utils import get_home_directory
 ```
 
-    2
+``` python
+ds = DataStore(datastore_path = f"{get_home_directory()}/datastore")
+ds.available_partitions.head(1)
+```
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&#10;    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+&#10;    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+
+|     | asset_type | data_type | symbol | file       |            |       |
+|-----|------------|-----------|--------|------------|------------|-------|
+|     |            |           |        | min        | max        | count |
+| 0   | EQUITY     | TRADE     | ALPS   | 2023-01-01 | 2023-10-07 | 280   |
+
+</div>
+
+``` python
+partition = ds.load_asset_partition(
+    asset_type = "EQUITY",
+    data_type = "TRADE",
+    symbol = "AROW",
+    date = "2023-01-03"
+)
+partition.head()
+```
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&#10;    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+&#10;    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+|     | conditions   | exchange | id  | participant_timestamp | price | sequence_number | sip_timestamp       | size | tape | trf_id | trf_timestamp |
+|-----|--------------|----------|-----|-----------------------|-------|-----------------|---------------------|------|------|--------|---------------|
+| 0   | \[12\]       | 4        | 319 | 1672779685399262000   | 33.98 | 6428681         | 1672779685400263036 | 338  | 3    | 12.0   | 1.672780e+18  |
+| 1   | \[12, 37\]   | 4        | 318 | 1672779622094000000   | 33.98 | 6427419         | 1672779622109060727 | 83   | 3    | 12.0   | 1.672780e+18  |
+| 2   | \[15\]       | 12       | 297 | 1672779601024156497   | 33.98 | 6424590         | 1672779601024173819 | 3023 | 3    | NaN    | NaN           |
+| 3   | \[8, 9, 41\] | 12       | 296 | 1672779601024130202   | 33.98 | 6424589         | 1672779601024151847 | 3023 | 3    | NaN    | NaN           |
+| 4   | \[15\]       | 11       | 124 | 1672779600029275904   | 33.93 | 6422322         | 1672779600029627197 | 100  | 3    | NaN    | NaN           |
+
+</div>
+
+``` python
+TimeSeries
+```
+
+    research.core.TimeSeries
+
+## volatility
+
+> a submodule for measuring volatility
